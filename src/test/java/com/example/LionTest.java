@@ -1,5 +1,6 @@
 package com.example;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -16,6 +17,7 @@ public class LionTest {
 
     @Spy
     Feline feline = new Feline();
+//    Feline feline;
 
     @Test
     public void doesHaveManeReturnTrue() throws Exception {
@@ -33,14 +35,14 @@ public class LionTest {
 
     @Test
     public void unknownSexReturnException() {
-
         try {
-            Lion lion = new Lion(feline, "Unknown");
-        } catch (Exception e) {
-            String actualResult = e.getMessage();
-            assertEquals("Используйте допустимые значения пола животного - самей или самка", actualResult);
+            Lion lion = new Lion(feline, "sex");
+            assertTrue("Значение должно быть true", lion.doesHaveMane());
+        } catch (Exception exception) {
+            String expectedException = "Используйте допустимые значения пола животного - самец или самка";
+            String actualException = exception.getMessage();
+            assertEquals(expectedException, actualException);
         }
-
     }
 
     @Test

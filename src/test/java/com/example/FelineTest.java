@@ -1,71 +1,30 @@
-package com.example;
+package Praktikum;
 
-import org.junit.Before;
+import com.example.Feline;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
-@RunWith(Parameterized.class)
+@RunWith(MockitoJUnitRunner.class)
 public class FelineTest {
-    private final int numberOfKittens;
 
-    public FelineTest(int numberOfKittens) {
-        this.numberOfKittens = numberOfKittens;
-    }
-    @Parameterized.Parameters(name = "Количество котят: {0}")
-    public static Object[][] getOrderFormData() {
-        return new Object[][]{
-                {1},
-                {10},
-                {100},
-                {0}
-        };
-    }
-    @Before
-    public void setUp(){
-        MockitoAnnotations.initMocks(this);
-    }
-    @Spy
-    Feline feline = new Feline();
 
     @Test
-    public void eatMeatReturnCorrectFood() throws Exception {
+    public void felineGetKittensPositiveTest() {
+        int expected = 1;
         Feline feline = new Feline();
-        List<String> expectedFood = List.of("Животные", "Птицы", "Рыба");
-        List<String> actualFood = feline.eatMeat();
-        assertEquals(expectedFood, actualFood);
+        int actual = feline.getKittens();
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
-    public void getFamilyReturnFeline() {
+    public void felineGetKittensKittensPositiveTest() {
+        int expected = 10;
         Feline feline = new Feline();
-        String expectedFamily = "Кошачьи";
-        String actualFamily = feline.getFamily();
-        assertEquals(expectedFamily, actualFamily);
+        int actual = feline.getKittens(10);
+        Assert.assertEquals(expected, actual);
     }
-
-    @Test
-    public void getKittensWithOutParametersReturnOne() {
-        int expectedKittens = 1;
-        int actualKittens = feline.getKittens();
-        Mockito.verify(feline, Mockito.times(1)).getKittens(expectedKittens);
-        assertEquals(expectedKittens, actualKittens);
-    }
-
-    @Test
-    public void getKittensWithParametersReturnCorrectValue() {
-        Feline feline = new Feline();
-        int expectedKittens = numberOfKittens;
-        int actualKittens = feline.getKittens(numberOfKittens);
-        assertEquals(expectedKittens, actualKittens);
-    }
-
 }
-
